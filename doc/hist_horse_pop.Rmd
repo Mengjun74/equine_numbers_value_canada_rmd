@@ -92,7 +92,7 @@ ggsave("province_plot.png")
 ```
 
 
-```{r out.height='500px', out.width='1000px'}
+```{r out.height='600px', out.width='1000px'}
 knitr::include_graphics("province_plot.png")
 ```
 # References
