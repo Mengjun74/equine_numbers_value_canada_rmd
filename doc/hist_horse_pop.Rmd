@@ -4,7 +4,8 @@ output:
   html_document:
     toc: true
 bibliography: references.bib
-params : "Alberta"
+params:
+    province: "Alberta"
 ---
 
 ```{r setup, include=FALSE}
@@ -36,7 +37,7 @@ Horse population data were sourced from the [Government of Canada's Open Data we
 
 ## Methods
 
-The R programming language and the following R packages were used to perform the analysis: knitr and tidyverse. The code used to perform the analysis and create this report can be found here: https://github.com/ttimbers/equine_numbers_value_canada_rmd.
+The R programming language and the following R packages were used to perform the analysis: knitr and tidyverse[@tidy]. The code used to perform the analysis and create this report can be found here: https://github.com/ttimbers/equine_numbers_value_canada_rmd.
 
 
 ## Results
@@ -67,14 +68,15 @@ max_horses <- horse_pop %>%
   group_by(Province) %>% 
   summarize(Maximum = max(Value),
             Minimum = min(Value))
-max_horses
+       
+knitr::kable(max_horses, caption = "Horses")
 ```
 
 Below we zoom in and look at the province of Alberta:
 
-```{r plot province, fig.width=5, fig.height=4}
+```{r plot province, fig.width=5, fig.height=4, fig.cap="Provinces", message=FALSE, fig.align='center'}
 province_plot <- horse_pop %>% 
-  filter(GEO == "Alberta") %>% 
+  filter(GEO == params$province) %>% 
   ggplot(aes(x = Ref_Date, y = Value)) +
   geom_point() +
   geom_line() +
@@ -85,4 +87,11 @@ province_plot <- horse_pop %>%
   scale_y_continuous(labels = scales::comma) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 province_plot
+
+ggsave("province_plot.png")
+```
+
+
+```{r out.height='500px', out.width='1000px'}
+knitr::include_graphics("province_plot.png")
 ```
