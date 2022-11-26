@@ -1,11 +1,17 @@
 ---
 title: "Historical horse population in Canada"
-output: github_document
+output: 
+  html_document:
+    toc: true
+bibliography: references.bib
+params : "Alberta"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
+library(knitr)
+library(kableExtra)
 ```
 
 ## Aim
